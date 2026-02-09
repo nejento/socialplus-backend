@@ -15,7 +15,7 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@tsconfig/node23": "^23.0.1",
+    "@tsconfig/node23": "^23.0.4",
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.14.0",
