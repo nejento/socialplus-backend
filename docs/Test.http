@@ -1,0 +1,239 @@
+### Registrace uživatele
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "displayname": "Test User",
+  "password": "securepassword123"
+}
+
+### Přihlášení uživatele
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "securepassword123"
+}
+
+### Přihlášení uživatele
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "nei",
+  "password": "ratafak"
+}
+
+### Registrace sekundárního uživatele
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "username": "lowaccount",
+  "displayname": "Lower Test User",
+  "password": "securepassword321"
+}
+
+### Přihlášní sekundárního uživatele
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "lowaccount",
+  "password": "securepassword321"
+}
+
+### Odhlášení uživatele
+GET http://localhost:8080/logout
+
+### Vyhledání uživatele podle ID
+GET http://localhost:8080/1/profile
+
+### Vyhledání uživatele podle uživatelského jména
+GET http://localhost:8080/username/testuser
+
+
+### Testovací network
+POST http://localhost:8080/network/add
+Content-Type: application/json
+
+{
+  "networkName": "Test Network",
+  "networkNote": "Testovací network"
+}
+
+> {% client.global.set("networkId", response.body.networkId); %}
+
+### Testovací network bez poznámky
+POST http://localhost:8080/network/add
+Content-Type: application/json
+
+{
+  "networkName": "Test Network No Note"
+}
+
+### Odstranění networku s předem vytvořeným ID
+DELETE http://localhost:8080/network/{{networkId}}/remove
+
+### Zjištění informací o networku
+GET http://localhost:8080/network/{{networkId}}
+
+### Seznam networků vlastněných uživatelem
+GET http://localhost:8080/network/list/owned
+
+### Seznam networků, ke kterým má uživatel přístup
+GET http://localhost:8080/network/list/all
+
+### Přidat permission uživateli do networku
+POST http://localhost:8080/network/{{networkId}}/addperm
+Content-Type: application/json
+
+{
+  "granteeId": 2,
+  "permission": "write"
+}
+
+### Odebrat permission uživateli z networku
+DELETE http://localhost:8080/network/{{networkId}}/removeperm/2
+
+### Změnit permission uživateli v networku
+PUT http://localhost:8080/network/{{networkId}}/changeperm
+Content-Type: application/json
+
+{
+  "granteeId": 2,
+  "permission": "read"
+}
+
+### Získat seznam uživatelů s přístupem do networku
+GET http://localhost:8080/network/{{networkId}}/listperm
+
+### Přidání tokenu k networku
+POST http://localhost:8080/network/{{networkId}}/addtoken
+Content-Type: application/json
+
+{
+  "tokenName": "TestCredential",
+  "token": "securepassword123"
+}
+
+### Úprava tokenu k networku
+PUT http://localhost:8080/network/{{networkId}}/edittoken
+Content-Type: application/json
+
+{
+  "tokenName": "TestCredential",
+  "token": "idkwhat"
+}
+
+### Odstranění tokenu z networku
+DELETE http://localhost:8080/network/{{networkId}}/removetoken/TestCredential
+
+### Vypsání tokenů k networku
+GET http://localhost:8080/network/{{networkId}}/listtokens
+
+### Vytvoření nového příspěvku
+POST http://localhost:8080/post/create
+
+> {% client.global.set("postId", response.body.postId); %}
+
+### Vytvoření obsahu příspěvku
+POST http://localhost:8080/post/{{postId}}/newcontent
+Content-Type: application/json
+
+{
+  "content": "Toto je testovací příspěvek"
+}
+
+> {% client.global.set("contentId", response.body.id); %}
+
+### Úprava obsahu příspěvku
+PUT http://localhost:8080/post/{{postId}}/editcontent
+Content-Type: application/json
+
+{
+  "contentId": {{contentId}},
+  "content": "Toto je upravený testovací příspěvek"
+}
+
+### Vypsání seznamu příspěvků uživatele
+GET http://localhost:8080/post/list
+
+### Vypsání seznamu obsahů příspěvku
+GET http://localhost:8080/post/{{postId}}/listcontents
+
+### Odstranění obsahu příspěvku
+DELETE http://localhost:8080/post/{{postId}}/deletecontent/{{contentId}}
+
+### Odstranění příspěvku
+DELETE http://localhost:8080/post/{{postId}}/delete
+
+### Nahrání souboru do příspěvku
+POST http://localhost:8080/post/{{postId}}/uploadfile
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="testfile.txt"
+Content-Type: text/plain
+
+This is a test file content.
+--boundary--
+
+> {% client.global.set("attachmentId", response.body.id); %}
+
+### Odstranění souboru z příspěvku
+DELETE http://localhost:8080/post/{{postId}}/removefile/{{attachmentId}}
+
+### Získání seznamu souborů příspěvků
+GET http://localhost:8080/post/{{postId}}/listfiles
+
+### Získání souboru příspěvku
+GET http://localhost:8080/post/{{postId}}/filename/1744731710863.txt
+
+### Získání souboru příspěvku pomocí ID
+GET http://localhost:8080/post/{{postId}}/getfile/{{attachmentId}}
+
+### Přidání uživatele jako editora příspěvku
+POST http://localhost:8080/post/{{postId}}/addeditor/2
+
+### Odebrání uživatele jako editora příspěvku
+DELETE http://localhost:8080/post/{{postId}}/removeeditor/2
+
+### Připojit obsah příspěvku k networku
+POST http://localhost:8080/post/{{postId}}/linkcontent/{{contentId}}/13
+
+### Odpojit obsah příspěvku od networku
+DELETE http://localhost:8080/post/{{postId}}/unlinkcontent/{{contentId}}/13
+
+### Získat seznam připojených obsahu příspěvku
+GET http://localhost:8080/post/{{postId}}/linkedcontents
+
+### Připojit soubor příspěvku k networku
+POST http://localhost:8080/post/{{postId}}/linkattachment/{{attachmentId}}/13
+
+### Odpojit soubor příspěvku od networku
+DELETE http://localhost:8080/post/{{postId}}/unlinkattachment/{{attachmentId}}/13
+
+### Získat seznam připojených souborů příspěvku
+GET http://localhost:8080/post/{{postId}}/linkedattachments
+
+### Získání seznamu příspěvků v networku
+#GET http://localhost:8080/network/{{networkId}}/posts
+GET http://localhost:8080/network/1/posts
+
+### Získání všech dat pro graf metrik příspěvku
+GET http://localhost:8080/monitor/83/network/15/graph
+
+### Získání typů metrik
+GET http://localhost:8080/monitor/83/availablemetrics
+
+### Získání specifických dat pro graf metrik příspěvku
+GET http://localhost:8080/monitor/83/network/15/graph?metrics=likes
+
+### Získání specifických dat pro graf metrik příspěvku
+GET http://localhost:8080/monitor/83/network/15/graph?metrics=comments,likes,reposts
+
+### Získání specifických dat pro graf metrik příspěvku
+GET http://localhost:8080/monitor/83/currentmetrics

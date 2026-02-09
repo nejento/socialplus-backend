@@ -1,0 +1,5187 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SocialPlus Backend API",
+    "description": "API a vývojové endpointy pro aplikaci SocialPlus",
+    "version": "0.1.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name": "apiKey",
+        "in": "header"
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/api/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "description": "Registrace uživatele do systému",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "displayname": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "displayname",
+                  "password"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "displayname": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "username",
+                    "displayname"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "description": "Přihlášení uživatele do systému",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "displayname": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "username",
+                    "displayname"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "Odhlášení uživatele ze systému",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": "Logged out"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{userId}/profile": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "Získání uživatelského profilu podle ID",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "userId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "displayname": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "username",
+                    "displayname"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/username/{username}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "Získání uživatelského profilu podle username",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "username",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "displayname": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "username",
+                    "displayname"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/me": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "Verifikace autentizace a získání informací o přihlášeném uživateli",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "displayname": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "username",
+                    "displayname"
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/add": {
+      "post": {
+        "tags": [
+          "network"
+        ],
+        "description": "Přidání nové sítě",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "networkType": {
+                    "type": "string"
+                  },
+                  "networkName": {
+                    "type": "string"
+                  },
+                  "networkNote": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "networkType",
+                  "networkName"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "networkId": {
+                      "type": "integer"
+                    },
+                    "networkType": {
+                      "type": "string"
+                    },
+                    "networkName": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "displayname": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "username",
+                        "displayname"
+                      ]
+                    },
+                    "note": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "read"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "write"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "admin"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "networkId",
+                    "networkType",
+                    "networkName",
+                    "owner",
+                    "permission"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/remove": {
+      "delete": {
+        "tags": [
+          "network"
+        ],
+        "description": "Smazání sítě. Síť může smazat pouze její přihlášený majitel.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "error": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "error": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/edit": {
+      "put": {
+        "tags": [
+          "network"
+        ],
+        "description": "Úprava sítě podle ID - typ sítě nelze měnit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "networkName": {
+                    "type": "string"
+                  },
+                  "networkNote": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "networkName"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "networkId": {
+                      "type": "integer"
+                    },
+                    "networkType": {
+                      "type": "string"
+                    },
+                    "networkName": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "displayname": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "username",
+                        "displayname"
+                      ]
+                    },
+                    "note": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "read"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "write"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "admin"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "networkId",
+                    "networkType",
+                    "networkName",
+                    "owner",
+                    "permission"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}": {
+      "get": {
+        "tags": [
+          "network"
+        ],
+        "description": "Získání sítě podle ID",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "networkId": {
+                      "type": "integer"
+                    },
+                    "networkType": {
+                      "type": "string"
+                    },
+                    "networkName": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "displayname": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "username",
+                        "displayname"
+                      ]
+                    },
+                    "note": {
+                      "type": "string"
+                    },
+                    "permission": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "read"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "write"
+                          ]
+                        },
+                        {
+                          "type": "string",
+                          "enum": [
+                            "admin"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "networkId",
+                    "networkType",
+                    "networkName",
+                    "owner",
+                    "permission"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/list/owned": {
+      "get": {
+        "tags": [
+          "network"
+        ],
+        "description": "Získání seznamu sítí, které uživatel vlastní",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "networkId": {
+                        "type": "integer"
+                      },
+                      "networkType": {
+                        "type": "string"
+                      },
+                      "networkName": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "username": {
+                            "type": "string"
+                          },
+                          "displayname": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "username",
+                          "displayname"
+                        ]
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "permission": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "read"
+                            ]
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "write"
+                            ]
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "admin"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "networkId",
+                      "networkType",
+                      "networkName",
+                      "owner",
+                      "permission"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/list/all": {
+      "get": {
+        "tags": [
+          "network"
+        ],
+        "description": "Získání seznamu sítí, ke kterým má uživatel přístup (může zobrazovat nebo vytvářet příspěvky",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "networkId": {
+                        "type": "integer"
+                      },
+                      "networkType": {
+                        "type": "string"
+                      },
+                      "networkName": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "username": {
+                            "type": "string"
+                          },
+                          "displayname": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "username",
+                          "displayname"
+                        ]
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "permission": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "read"
+                            ]
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "write"
+                            ]
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "admin"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "networkId",
+                      "networkType",
+                      "networkName",
+                      "owner",
+                      "permission"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/addperm": {
+      "post": {
+        "tags": [
+          "network",
+          "user"
+        ],
+        "description": "Přidání uživatele a jeho oprávnění k síti",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "granteeId": {
+                    "type": "integer"
+                  },
+                  "permission": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "read"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "write"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "granteeId",
+                  "permission"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/removeperm/{granteeId}": {
+      "delete": {
+        "tags": [
+          "network",
+          "user"
+        ],
+        "description": "Smazání přístupu uživatele ze sítě",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "granteeId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/changeperm": {
+      "put": {
+        "tags": [
+          "network",
+          "user"
+        ],
+        "description": "Změna oprávnění uživatele v síti",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "granteeId": {
+                    "type": "integer"
+                  },
+                  "permission": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "read"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "write"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "granteeId",
+                  "permission"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/listperm": {
+      "get": {
+        "tags": [
+          "network",
+          "user"
+        ],
+        "description": "Získání seznamu uživatelů, kteří mají přístup k síti",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "granteeId": {
+                        "type": "integer"
+                      },
+                      "permission": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "read"
+                            ]
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "write"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "granteeId",
+                      "permission"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/addtoken": {
+      "post": {
+        "tags": [
+          "network"
+        ],
+        "description": "Přidání tokenů k síti - podporuje pole tokenů, specifické Facebook tokeny nebo Mastodon tokeny",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "tokens": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "tokenName": {
+                              "type": "string"
+                            },
+                            "token": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "tokenName",
+                            "token"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "tokens"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "appId": {
+                        "type": "string"
+                      },
+                      "appSecret": {
+                        "type": "string"
+                      },
+                      "pageId": {
+                        "type": "string"
+                      },
+                      "shortLivedUserAccessToken": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "appId",
+                      "appSecret",
+                      "pageId",
+                      "shortLivedUserAccessToken"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "instanceUrl": {
+                        "type": "string"
+                      },
+                      "accessToken": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "instanceUrl",
+                      "accessToken"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "handle": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "handle",
+                      "password"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "apiKey": {
+                        "type": "string"
+                      },
+                      "apiSecret": {
+                        "type": "string"
+                      },
+                      "accessToken": {
+                        "type": "string"
+                      },
+                      "accessTokenSecret": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "apiKey",
+                      "apiSecret",
+                      "accessToken",
+                      "accessTokenSecret"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "threadsUserId": {
+                        "type": "string"
+                      },
+                      "threadsAppSecret": {
+                        "type": "string"
+                      },
+                      "longLivedAccessToken": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "threadsUserId",
+                      "threadsAppSecret",
+                      "longLivedAccessToken"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/listtokens": {
+      "get": {
+        "tags": [
+          "network"
+        ],
+        "description": "Získání seznamu názvů tokenů v síti",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "tokenName": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "tokenName"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/removetoken": {
+      "delete": {
+        "tags": [
+          "network"
+        ],
+        "description": "Smazání všech tokenů ze sítě",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/posts": {
+      "get": {
+        "tags": [
+          "network",
+          "post"
+        ],
+        "description": "Získání stránkovaného seznamu příspěvků postovaných na konkrétní síť",
+        "parameters": [
+          {
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "page",
+            "required": false
+          },
+          {
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "postId": {
+                            "type": "integer"
+                          },
+                          "creator": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "username": {
+                                "type": "string"
+                              },
+                              "displayname": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "username",
+                              "displayname"
+                            ]
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "postId": {
+                                  "type": "integer"
+                                },
+                                "content": {
+                                  "type": "string"
+                                },
+                                "linkedNetworks": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer"
+                                  }
+                                },
+                                "canEdit": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "postId",
+                                "content",
+                                "linkedNetworks",
+                                "canEdit"
+                              ]
+                            }
+                          },
+                          "attachments": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "postId": {
+                                  "type": "integer"
+                                },
+                                "fileName": {
+                                  "type": "string"
+                                },
+                                "linkedNetworks": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "postId",
+                                "fileName",
+                                "linkedNetworks"
+                              ]
+                            }
+                          },
+                          "editors": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "userId": {
+                                  "type": "integer"
+                                },
+                                "username": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "userId",
+                                "username"
+                              ]
+                            }
+                          },
+                          "scheduledTimes": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "networkId": {
+                                  "type": "integer"
+                                },
+                                "contentId": {
+                                  "type": "integer"
+                                },
+                                "postDate": {
+                                  "type": "string"
+                                },
+                                "actualPostDate": {
+                                  "type": "string"
+                                },
+                                "networkPostId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "networkId",
+                                "contentId"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "postId",
+                          "creator",
+                          "contents",
+                          "attachments",
+                          "editors",
+                          "scheduledTimes"
+                        ]
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "page",
+                        "limit",
+                        "total",
+                        "totalPages"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "posts",
+                    "pagination"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network/{networkId}/posts/{postId}": {
+      "get": {
+        "tags": [
+          "network",
+          "post"
+        ],
+        "description": "Získání detailu konkrétního příspěvku postovaného na síť",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "postId": {
+                      "type": "integer"
+                    },
+                    "creator": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "displayname": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "username",
+                        "displayname"
+                      ]
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "postId": {
+                            "type": "integer"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "linkedNetworks": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
+                            }
+                          },
+                          "canEdit": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "postId",
+                          "content",
+                          "linkedNetworks",
+                          "canEdit"
+                        ]
+                      }
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "postId": {
+                            "type": "integer"
+                          },
+                          "fileName": {
+                            "type": "string"
+                          },
+                          "linkedNetworks": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "postId",
+                          "fileName",
+                          "linkedNetworks"
+                        ]
+                      }
+                    },
+                    "editors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "userId": {
+                            "type": "integer"
+                          },
+                          "username": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "userId",
+                          "username"
+                        ]
+                      }
+                    },
+                    "scheduledTimes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "networkId": {
+                            "type": "integer"
+                          },
+                          "contentId": {
+                            "type": "integer"
+                          },
+                          "postDate": {
+                            "type": "string"
+                          },
+                          "actualPostDate": {
+                            "type": "string"
+                          },
+                          "networkPostId": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "networkId",
+                          "contentId"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "postId",
+                    "creator",
+                    "contents",
+                    "attachments",
+                    "editors",
+                    "scheduledTimes"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/availablenetworks": {
+      "get": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Získání seznamu networků dostupných pro linkování contentu k příspěvku. Vrací pouze ty networky, které vlastní tvůrce příspěvku a ke kterým má aktuální uživatel přístup.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "networkId": {
+                        "type": "integer"
+                      },
+                      "networkType": {
+                        "type": "string"
+                      },
+                      "networkName": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "username": {
+                            "type": "string"
+                          },
+                          "displayname": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "username",
+                          "displayname"
+                        ]
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "permission": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "read"
+                            ]
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "write"
+                            ]
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "admin"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "networkId",
+                      "networkType",
+                      "networkName",
+                      "owner",
+                      "permission"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/create": {
+      "post": {
+        "tags": [
+          "post"
+        ],
+        "description": "Vytvoření nového příspěvku",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "postId": {
+                      "type": "integer"
+                    },
+                    "creatorId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "postId",
+                    "creatorId"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/newcontent": {
+      "post": {
+        "tags": [
+          "post"
+        ],
+        "description": "Vytvoření nového obsahu příspěvku",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "content"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "postId": {
+                      "type": "integer"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "linkedNetworks": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "canEdit": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "postId",
+                    "content",
+                    "linkedNetworks",
+                    "canEdit"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/editcontent": {
+      "put": {
+        "tags": [
+          "post"
+        ],
+        "description": "Editace obsahu příspěvku",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contentId": {
+                    "type": "integer"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contentId",
+                  "content"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "postId": {
+                      "type": "integer"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "linkedNetworks": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "canEdit": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "postId",
+                    "content",
+                    "linkedNetworks",
+                    "canEdit"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/editorlist": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "description": "Seznam příspěvků kde je uživatel přiřazen jako editor s stránkováním",
+        "parameters": [
+          {
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "page",
+            "required": false
+          },
+          {
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "postId": {
+                            "type": "integer"
+                          },
+                          "creatorId": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "postId",
+                          "creatorId"
+                        ]
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "page",
+                        "limit",
+                        "total",
+                        "totalPages"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "posts",
+                    "pagination"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/listcontents": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "description": "Seznam obsahů příspěvku",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "postId": {
+                        "type": "integer"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "linkedNetworks": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      },
+                      "canEdit": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "postId",
+                      "content",
+                      "linkedNetworks",
+                      "canEdit"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/deletecontent/{contentId}": {
+      "delete": {
+        "tags": [
+          "post"
+        ],
+        "description": "Smazání obsahu příspěvku",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "contentId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/delete": {
+      "delete": {
+        "tags": [
+          "post"
+        ],
+        "description": "Smazání příspěvku (pouze vlastník) nebo odstranění editora z příspěvku",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/uploadfile": {
+      "post": {
+        "tags": [
+          "post"
+        ],
+        "description": "Nahrání přílohy k příspěvku",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "postId": {
+                      "type": "integer"
+                    },
+                    "fileName": {
+                      "type": "string"
+                    },
+                    "linkedNetworks": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "postId",
+                    "fileName",
+                    "linkedNetworks"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/removefile/{attachmentId}": {
+      "delete": {
+        "tags": [
+          "post"
+        ],
+        "description": "Odstranění přílohy příspěvku",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "attachmentId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/listfiles": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "description": "Seznam příloh příspěvku",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "postId": {
+                        "type": "integer"
+                      },
+                      "fileName": {
+                        "type": "string"
+                      },
+                      "linkedNetworks": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "postId",
+                      "fileName",
+                      "linkedNetworks"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/getfile/{attachmentId}": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "description": "Získání souboru přílohy",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "attachmentId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/addeditor/{userId}": {
+      "post": {
+        "tags": [
+          "post",
+          "user"
+        ],
+        "description": "Přidání uživatele jako editora k příspěvku",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "userId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/removeeditor/{userId}": {
+      "delete": {
+        "tags": [
+          "post",
+          "user"
+        ],
+        "description": "Odstranění uživatele jako editora z příspěvku",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "userId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/linkcontent/{contentId}/{networkId}": {
+      "post": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Propojení obsahu příspěvku se sítí",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "contentId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/unlinkcontent/{contentId}/{networkId}": {
+      "delete": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Odpojení obsahu příspěvku od sítě",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "contentId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/linkedcontents": {
+      "get": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Seznam obsahů příspěvků propojených se sítí",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "postId": {
+                        "type": "integer"
+                      },
+                      "contentId": {
+                        "type": "integer"
+                      },
+                      "networkId": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "postId",
+                      "contentId",
+                      "networkId"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/linkattachment/{attachmentId}/{networkId}": {
+      "post": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Propojení přílohy příspěvku se sítí",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "attachmentId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/unlinkattachment/{attachmentId}/{networkId}": {
+      "delete": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Odpojení přílohy příspěvku od sítě",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "attachmentId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/linkedattachments": {
+      "get": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "List post attachments linked to network",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "postId": {
+                        "type": "integer"
+                      },
+                      "attachmentId": {
+                        "type": "integer"
+                      },
+                      "networkId": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "postId",
+                      "attachmentId",
+                      "networkId"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/send/{networkId}": {
+      "post": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Publikování příspěvku na konkrétní síť",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/send/all": {
+      "post": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Publikování příspěvku na všechny propojené sítě",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/schedule/{networkId}": {
+      "post": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Naplánování nebo přeplánování publikování obsahu do sítě",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "postDate": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "postDate"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/unschedule/{networkId}": {
+      "delete": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Zrušení plánovaného publikování obsahu ze sítě",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "success": true,
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}/scheduled/{networkId}": {
+      "get": {
+        "tags": [
+          "post",
+          "network"
+        ],
+        "description": "Get scheduled time for given post and social network",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "networkId": {
+                      "type": "integer"
+                    },
+                    "contentId": {
+                      "type": "integer"
+                    },
+                    "postDate": {
+                      "type": "string"
+                    },
+                    "actualPostDate": {
+                      "type": "string"
+                    },
+                    "networkPostId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "networkId",
+                    "contentId"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/{postId}": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "description": "Get complete post detail with all available information for the user",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "postId": {
+                      "type": "integer"
+                    },
+                    "creator": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "displayname": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "username",
+                        "displayname"
+                      ]
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "postId": {
+                            "type": "integer"
+                          },
+                          "content": {
+                            "type": "string"
+                          },
+                          "linkedNetworks": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
+                            }
+                          },
+                          "canEdit": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "postId",
+                          "content",
+                          "linkedNetworks",
+                          "canEdit"
+                        ]
+                      }
+                    },
+                    "attachments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "postId": {
+                            "type": "integer"
+                          },
+                          "fileName": {
+                            "type": "string"
+                          },
+                          "linkedNetworks": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "postId",
+                          "fileName",
+                          "linkedNetworks"
+                        ]
+                      }
+                    },
+                    "editors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "userId": {
+                            "type": "integer"
+                          },
+                          "username": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "userId",
+                          "username"
+                        ]
+                      }
+                    },
+                    "scheduledTimes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "networkId": {
+                            "type": "integer"
+                          },
+                          "contentId": {
+                            "type": "integer"
+                          },
+                          "postDate": {
+                            "type": "string"
+                          },
+                          "actualPostDate": {
+                            "type": "string"
+                          },
+                          "networkPostId": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "networkId",
+                          "contentId"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "postId",
+                    "creator",
+                    "contents",
+                    "attachments",
+                    "editors",
+                    "scheduledTimes"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/list/detailed": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "description": "List users posts with detailed information and pagination - saves multiple API calls",
+        "parameters": [
+          {
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "page",
+            "required": false
+          },
+          {
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "postId": {
+                            "type": "integer"
+                          },
+                          "creator": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "username": {
+                                "type": "string"
+                              },
+                              "displayname": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "username",
+                              "displayname"
+                            ]
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "postId": {
+                                  "type": "integer"
+                                },
+                                "content": {
+                                  "type": "string"
+                                },
+                                "linkedNetworks": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer"
+                                  }
+                                },
+                                "canEdit": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "postId",
+                                "content",
+                                "linkedNetworks",
+                                "canEdit"
+                              ]
+                            }
+                          },
+                          "attachments": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "postId": {
+                                  "type": "integer"
+                                },
+                                "fileName": {
+                                  "type": "string"
+                                },
+                                "linkedNetworks": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "postId",
+                                "fileName",
+                                "linkedNetworks"
+                              ]
+                            }
+                          },
+                          "editors": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "userId": {
+                                  "type": "integer"
+                                },
+                                "username": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "userId",
+                                "username"
+                              ]
+                            }
+                          },
+                          "scheduledTimes": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "networkId": {
+                                  "type": "integer"
+                                },
+                                "contentId": {
+                                  "type": "integer"
+                                },
+                                "postDate": {
+                                  "type": "string"
+                                },
+                                "actualPostDate": {
+                                  "type": "string"
+                                },
+                                "networkPostId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "networkId",
+                                "contentId"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "postId",
+                          "creator",
+                          "contents",
+                          "attachments",
+                          "editors",
+                          "scheduledTimes"
+                        ]
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "page",
+                        "limit",
+                        "total",
+                        "totalPages"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "posts",
+                    "pagination"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/editorlist/detailed": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "description": "List posts where user is assigned as editor with detailed information and pagination - saves multiple API calls",
+        "parameters": [
+          {
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "page",
+            "required": false
+          },
+          {
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "postId": {
+                            "type": "integer"
+                          },
+                          "creator": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "username": {
+                                "type": "string"
+                              },
+                              "displayname": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "username",
+                              "displayname"
+                            ]
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "postId": {
+                                  "type": "integer"
+                                },
+                                "content": {
+                                  "type": "string"
+                                },
+                                "linkedNetworks": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer"
+                                  }
+                                },
+                                "canEdit": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "postId",
+                                "content",
+                                "linkedNetworks",
+                                "canEdit"
+                              ]
+                            }
+                          },
+                          "attachments": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "postId": {
+                                  "type": "integer"
+                                },
+                                "fileName": {
+                                  "type": "string"
+                                },
+                                "linkedNetworks": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "postId",
+                                "fileName",
+                                "linkedNetworks"
+                              ]
+                            }
+                          },
+                          "editors": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "userId": {
+                                  "type": "integer"
+                                },
+                                "username": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "userId",
+                                "username"
+                              ]
+                            }
+                          },
+                          "scheduledTimes": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "networkId": {
+                                  "type": "integer"
+                                },
+                                "contentId": {
+                                  "type": "integer"
+                                },
+                                "postDate": {
+                                  "type": "string"
+                                },
+                                "actualPostDate": {
+                                  "type": "string"
+                                },
+                                "networkPostId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "networkId",
+                                "contentId"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "postId",
+                          "creator",
+                          "contents",
+                          "attachments",
+                          "editors",
+                          "scheduledTimes"
+                        ]
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "page",
+                        "limit",
+                        "total",
+                        "totalPages"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "posts",
+                    "pagination"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/list/filtered": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "description": "List posts (scheduled and posted) filtered by social network ID and time period where user is creator or has network read access",
+        "parameters": [
+          {
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "page",
+            "required": false
+          },
+          {
+            "schema": {
+              "minimum": 1,
+              "maximum": 200,
+              "default": 10,
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "networkId",
+            "required": false
+          },
+          {
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "startDate",
+            "required": false
+          },
+          {
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "in": "query",
+            "name": "endDate",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "postId": {
+                            "type": "integer"
+                          },
+                          "creator": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "username": {
+                                "type": "string"
+                              },
+                              "displayname": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "username",
+                              "displayname"
+                            ]
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "postId": {
+                                  "type": "integer"
+                                },
+                                "content": {
+                                  "type": "string"
+                                },
+                                "linkedNetworks": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer"
+                                  }
+                                },
+                                "canEdit": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "postId",
+                                "content",
+                                "linkedNetworks",
+                                "canEdit"
+                              ]
+                            }
+                          },
+                          "attachments": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "postId": {
+                                  "type": "integer"
+                                },
+                                "fileName": {
+                                  "type": "string"
+                                },
+                                "linkedNetworks": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "postId",
+                                "fileName",
+                                "linkedNetworks"
+                              ]
+                            }
+                          },
+                          "editors": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "userId": {
+                                  "type": "integer"
+                                },
+                                "username": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "userId",
+                                "username"
+                              ]
+                            }
+                          },
+                          "scheduledTimes": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "networkId": {
+                                  "type": "integer"
+                                },
+                                "contentId": {
+                                  "type": "integer"
+                                },
+                                "postDate": {
+                                  "type": "string"
+                                },
+                                "actualPostDate": {
+                                  "type": "string"
+                                },
+                                "networkPostId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "networkId",
+                                "contentId"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "postId",
+                          "creator",
+                          "contents",
+                          "attachments",
+                          "editors",
+                          "scheduledTimes"
+                        ]
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer"
+                        },
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "page",
+                        "limit",
+                        "total",
+                        "totalPages"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "posts",
+                    "pagination"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/attachmentsize": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "description": "Získání maximální povolené velikosti souboru pro nahrávání",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "maxFileSize": {
+                      "description": "Maximální velikost souboru v bajtech",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "maxFileSize"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/scheduler/status": {
+      "get": {
+        "tags": [
+          "scheduler"
+        ],
+        "description": "Získání aktuálního stavu scheduleru příspěvků",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "isRunning": {
+                      "type": "boolean"
+                    },
+                    "checkIntervalMinutes": {
+                      "type": "number"
+                    },
+                    "nextCheck": {
+                      "type": "string",
+                      "format": "date-time",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/scheduler/check": {
+      "post": {
+        "tags": [
+          "scheduler"
+        ],
+        "description": "Manuální spuštění kontroly naplánovaných příspěvků",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/scheduler/upcoming": {
+      "get": {
+        "tags": [
+          "scheduler"
+        ],
+        "description": "Získání nadcházejících naplánovaných příspěvků",
+        "parameters": [
+          {
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 168,
+              "default": 24
+            },
+            "in": "query",
+            "name": "hours",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "postId": {
+                        "type": "number"
+                      },
+                      "networkId": {
+                        "type": "number"
+                      },
+                      "contentId": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "attachments": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "scheduledDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "networkType": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/monitor/{postId}/collect": {
+      "post": {
+        "tags": [
+          "monitor"
+        ],
+        "description": "Manuálně spustí sběr metrik výkonu pro konkrétní příspěvek napříč všemi sítěmi, na které byl zveřejněn",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/monitor/{postId}/network/{networkId}/latest": {
+      "get": {
+        "tags": [
+          "monitor"
+        ],
+        "description": "Získá nejnovější metriky výkonu pro konkrétní příspěvek na konkrétní síti",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/monitor/{postId}/network/{networkId}/history": {
+      "get": {
+        "tags": [
+          "monitor"
+        ],
+        "description": "Získá historii metrik výkonu pro konkrétní příspěvek na konkrétní síti v časovém rozmezí",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "startDate",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "endDate",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "metrics": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "postId": {
+                            "type": "string"
+                          },
+                          "networkType": {
+                            "type": "string"
+                          },
+                          "timestamp": {
+                            "type": "string"
+                          },
+                          "views": {
+                            "type": "number"
+                          },
+                          "likes": {
+                            "type": "number"
+                          },
+                          "shares": {
+                            "type": "number"
+                          },
+                          "comments": {
+                            "type": "number"
+                          },
+                          "reposts": {
+                            "type": "number"
+                          },
+                          "reactions": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "number"
+                            }
+                          },
+                          "reach": {
+                            "type": "number"
+                          },
+                          "impressions": {
+                            "type": "number"
+                          },
+                          "engagement": {
+                            "type": "number"
+                          },
+                          "clickThroughRate": {
+                            "type": "number"
+                          },
+                          "customMetrics": {
+                            "type": "object",
+                            "additionalProperties": {}
+                          }
+                        },
+                        "required": [
+                          "postId",
+                          "networkType",
+                          "timestamp"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "metrics"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/monitor/status": {
+      "get": {
+        "tags": [
+          "monitor"
+        ],
+        "description": "Získá stav služby monitorování výkonu",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/monitor/{postId}/network/{networkId}/graph": {
+      "get": {
+        "tags": [
+          "monitor"
+        ],
+        "description": "Získá grafová data pro konkrétní příspěvek na konkrétní síti, volitelně filtrováno podle metrik (oddělených čárkami)",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "metrics",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "networkId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "networks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "networkId": {
+                            "type": "number"
+                          },
+                          "networkType": {
+                            "type": "string"
+                          },
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "additionalProperties": true,
+                              "type": "object",
+                              "properties": {
+                                "timestamp": {
+                                  "type": "string"
+                                },
+                                "likes": {
+                                  "type": "number"
+                                },
+                                "shares": {
+                                  "type": "number"
+                                },
+                                "comments": {
+                                  "type": "number"
+                                },
+                                "reposts": {
+                                  "type": "number"
+                                },
+                                "views": {
+                                  "type": "number"
+                                },
+                                "reach": {
+                                  "type": "number"
+                                },
+                                "impressions": {
+                                  "type": "number"
+                                },
+                                "engagement": {
+                                  "type": "number"
+                                },
+                                "clickThroughRate": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "timestamp"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "networkId",
+                          "networkType",
+                          "data"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "networks"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/monitor/{postId}/availablemetrics": {
+      "get": {
+        "tags": [
+          "monitor"
+        ],
+        "description": "Získá dostupné metriky pro konkrétní příspěvek napříč všemi sítěmi, na které byl zveřejněn",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "networks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "networkId": {
+                            "type": "number"
+                          },
+                          "networkType": {
+                            "type": "string"
+                          },
+                          "availableMetrics": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "networkId",
+                          "networkType",
+                          "availableMetrics"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "networks"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/monitor/{postId}/currentmetrics": {
+      "get": {
+        "tags": [
+          "monitor"
+        ],
+        "description": "Získá aktuální (nejnovější) shromážděné metriky pro konkrétní příspěvek napříč všemi sítěmi, na které byl zveřejněn",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "postId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "networks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "networkId": {
+                            "type": "number"
+                          },
+                          "networkType": {
+                            "type": "string"
+                          },
+                          "data": {
+                            "additionalProperties": true,
+                            "type": "object",
+                            "properties": {
+                              "timestamp": {
+                                "type": "string"
+                              },
+                              "likes": {
+                                "type": "number"
+                              },
+                              "shares": {
+                                "type": "number"
+                              },
+                              "comments": {
+                                "type": "number"
+                              },
+                              "reposts": {
+                                "type": "number"
+                              },
+                              "views": {
+                                "type": "number"
+                              },
+                              "reach": {
+                                "type": "number"
+                              },
+                              "impressions": {
+                                "type": "number"
+                              },
+                              "engagement": {
+                                "type": "number"
+                              },
+                              "clickThroughRate": {
+                                "type": "number"
+                              },
+                              "reactions": {
+                                "type": "object",
+                                "additionalProperties": {
+                                  "type": "number"
+                                }
+                              },
+                              "customMetrics": {
+                                "type": "object",
+                                "additionalProperties": {}
+                              }
+                            },
+                            "required": [
+                              "timestamp"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "networkId",
+                          "networkType",
+                          "data"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "networks"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/monitor/stats": {
+      "get": {
+        "tags": [
+          "monitor"
+        ],
+        "description": "Získá statistiky dashboardu pro ověřeného uživatele",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "unplannedPosts": {
+                      "type": "number"
+                    },
+                    "scheduledPosts": {
+                      "type": "number"
+                    },
+                    "nextScheduledDate": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "monitoredPosts": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "unplannedPosts",
+                    "scheduledPosts",
+                    "nextScheduledDate",
+                    "monitoredPosts"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://0.0.0.0:8080",
+      "description": "HTTP server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "User related end-points"
+    },
+    {
+      "name": "network",
+      "description": "Network management related end-points"
+    },
+    {
+      "name": "post",
+      "description": "Post related end-points"
+    },
+    {
+      "name": "scheduler",
+      "description": "Post scheduler management end-points"
+    },
+    {
+      "name": "monitor",
+      "description": "Performance monitoring end-points"
+    }
+  ],
+  "externalDocs": {
+    "url": "https://swagger.io",
+    "description": "Find more info here"
+  }
+}

@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id                 Int             @id @unique(map: "id_UNIQUE") @default(autoincrement()) /// ID uživatele
+  username           String          @unique(map: "username_UNIQUE") @db.VarChar(256) /// Přihlašovací uživatelské jméno
+  password           String          @db.VarChar(256) /// Přihlašovací heslo
+  displayname        String          @db.VarChar(256) /// Zobrazované jméno
+  networks           Network[]
+  posts              Post[]
+  users_has_networks NetworksUsers[]
+  PostEditor         PostEditor[]
+
+  @@map("users")
+}
+
+model Network {
+  id                 Int             @unique(map: "id_UNIQUE") @default(autoincrement()) /// ID sociální sítě
+  owner_id           Int /// Majitel sociální sítě
+  network_type       String          @db.VarChar(256) /// Typ sociální sítě (např. "facebook", "twitter", "instagram")
+  network_name       String          @db.VarChar(256) /// Název sociální sítě
+  note               String?         @db.VarChar(256) /// Poznámka k sociální síti
+  network_tokens     NetworkToken[]
+  users              User            @relation(fields: [owner_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_networks_users1")
+  posted_content     PostedContent[]
+  users_has_networks NetworksUsers[]
+
+  @@id([id, owner_id])
+  @@index([owner_id], map: "fk_networks_users1_idx")
+  @@map("networks")
+}
+
+model NetworkToken {
+  network_id Int /// ID sociální sítě
+  token_name String  @db.VarChar(256) /// Název tokenu
+  token      String  @db.VarChar(256) /// Token
+  networks   Network @relation(fields: [network_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_network_tokens_networks1")
+
+  @@id([network_id, token_name])
+  @@index([network_id], map: "network_tokens_networks1_idx")
+  @@map("network_tokens")
+}
+
+model NetworksUsers {
+  networks_id Int /// ID sociální sítě, ke které je udělován přístup
+  granter_id  Int /// ID uživatele, který oprávnění přiděluje
+  grantee_id  Int /// ID uživatele, kterému je přidělováno oprávnění
+  permission  String  @db.VarChar(256) /// Oprávnění (např. "read", "write", "admin")
+  networks    Network @relation(fields: [networks_id, granter_id], references: [id, owner_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_users_has_networks_networks2")
+  users       User    @relation(fields: [grantee_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_users_has_networks_users2")
+
+  @@id([networks_id, granter_id, grantee_id])
+  @@index([networks_id, granter_id], map: "fk_users_has_networks_networks2_idx")
+  @@index([grantee_id], map: "fk_users_has_networks_users2_idx")
+  @@map("users_has_networks")
+}
+
+model Post {
+  id             Int             @id @unique(map: "id_UNIQUE") @default(autoincrement()) /// ID příspěvku
+  creator_id     Int /// ID uživatele, který příspěvek vytvořil
+  attachments    Attachment[]
+  contents       Content[]
+  posted_content PostedContent[]
+  users          User            @relation(fields: [creator_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_posts_users")
+  PostEditor     PostEditor[]
+
+  @@index([creator_id], map: "fk_posts_users_idx")
+  @@map("posts")
+}
+
+model PostEditor {
+  posts_id  Int /// ID příspěvku, který editor spravuje
+  editor_id Int /// ID uživatele, který je editorem příspěvku
+  posts     Post @relation(fields: [posts_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_editors_posts1")
+  users     User @relation(fields: [editor_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_editors_users1")
+
+  @@id([posts_id, editor_id])
+  @@index([posts_id], map: "fk_post_editors_posts1_idx")
+  @@index([editor_id], map: "fk_post_editors_users1_idx")
+  @@map("post_editors")
+}
+
+model Attachment {
+  id                             Int                       @unique(map: "id_UNIQUE") @default(autoincrement()) /// ID attachmentu
+  posts_id                       Int /// ID příspěvku, kterému attachment patří
+  path                           String                    @db.VarChar(256) /// Cesta k souboru attachmentu
+  posts                          Post                      @relation(fields: [posts_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_attachments_posts2")
+  posted_content_has_attachments PostedContentAttachment[]
+
+  @@id([id, posts_id])
+  @@index([posts_id], map: "fk_attachments_posts2_idx")
+  @@map("attachments")
+}
+
+model Content {
+  id             Int             @id @default(autoincrement()) /// ID obsahu jednotlivých příspěvků
+  posts_id       Int /// ID postu, ke kterému obsah příspěvku patří
+  content        String          @db.MediumText /// Obsah příspěvku
+  posts          Post            @relation(fields: [posts_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_contents_posts1")
+  posted_content PostedContent[]
+
+  @@index([posts_id], map: "fk_contents_posts1_idx")
+  @@map("contents")
+}
+
+model PostedContent {
+  posts_id                       Int /// ID příspěvku
+  networks_id                    Int /// ID networku, na kterou je příspěvek odesílán
+  contents_id                    Int /// ID obsahu příspěvku, který je odeslán na danou síť
+  post_date                      DateTime?                 @db.DateTime(0) /// Datum, kdy má být příspěvek postnut
+  actual_post_date               DateTime?                 @db.DateTime(0) /// Skutečné datum odeslání příspěvku vzhledem k možným zpožděním API nebo případným problémům
+  network_post_id                String?                   @db.VarChar(256) /// ID příspěvku na sociální sítí
+  contents                       Content                   @relation(fields: [contents_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_content_contents1")
+  networks                       Network                   @relation(fields: [networks_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_content_networks1")
+  posts                          Post                      @relation(fields: [posts_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_post_content_posts1")
+  posted_content_has_attachments PostedContentAttachment[]
+
+  @@id([posts_id, networks_id])
+  @@index([contents_id], map: "fk_post_content_contents1_idx")
+  @@index([networks_id], map: "fk_post_content_networks1_idx")
+  @@map("posted_content")
+}
+
+model PostedContentAttachment {
+  posts_id       Int /// ID vybraného postu, ke kterému attachment patří
+  networks_id    Int /// ID networku vybraného postu, ke kterému attachment patří
+  attachments_id Int /// ID attachmentu, který patří k vybranému příspěvku dané sociální sítě
+  attachments    Attachment    @relation(fields: [attachments_id], references: [id], onUpdate: NoAction, map: "fk_posted_content_has_attachments_attachments1")
+  posted_content PostedContent @relation(fields: [posts_id, networks_id], references: [posts_id, networks_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_posted_content_has_attachments_posted_content1")
+
+  @@id([posts_id, networks_id, attachments_id])
+  @@index([attachments_id], map: "fk_posted_content_has_attachments_attachments1_idx")
+  @@index([posts_id, networks_id], map: "fk_posted_content_has_attachments_posted_content1_idx")
+  @@map("posted_content_has_attachments")
+}

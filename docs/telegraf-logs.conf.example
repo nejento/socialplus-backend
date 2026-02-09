@@ -1,0 +1,77 @@
+# Telegraf configuration for SocialPlus JSON logs
+
+# Global tags for all metrics
+[global_tags]
+  application = "socialplus"
+  environment = "production"
+
+# Agent configuration
+[agent]
+  interval = "10s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  debug = false
+  quiet = false
+  hostname = ""
+
+# Input plugin for general application logs
+[[inputs.tail]]
+  files = ["/logs/app.log"]
+  watch_method = "inotify"
+  data_format = "json_v2"
+  name_override = "socialplus_app_logs"
+
+  [[inputs.tail.json_v2]]
+    timestamp_path = "time"
+    timestamp_format = "unix_ms"
+    measurement_name = "socialplus_app_logs"
+
+    [[inputs.tail.json_v2.tag]]
+      path = "level"
+    [[inputs.tail.json_v2.tag]]
+      path = "hostname"
+    [[inputs.tail.json_v2.field]]
+      path = "msg"
+      type = "string"
+
+# Input plugin for API access logs
+[[inputs.tail]]
+  files = ["/logs/app.log"]
+  watch_method = "inotify"
+  data_format = "json_v2"
+  name_override = "socialplus_api_logs"
+
+  # Use a filter to process only lines with 'reqId' and 'responseTime'
+  tagpass = { "reqId" = ["*"] }
+
+  [[inputs.tail.json_v2]]
+    timestamp_path = "time"
+    timestamp_format = "unix_ms"
+    measurement_name = "socialplus_api_logs"
+
+    # Map fields and tags from the nested JSON
+    [[inputs.tail.json_v2.tag]]
+      path = "reqId"
+    [[inputs.tail.json_v2.tag]]
+      path = "req.method"
+    [[inputs.tail.json_v2.tag]]
+      path = "res.statusCode"
+    [[inputs.tail.json_v2.tag]]
+      path = "msg"
+    [[inputs.tail.json_v2.field]]
+      path = "responseTime"
+      type = "float"
+
+# Output to InfluxDB
+[[outputs.influxdb_v2]]
+  urls = ["https://localhost:8086"]
+  token = "INFLUXDB_TOKEN"
+  organization = "INFLUXDB_ORG"
+  bucket = "socialplus_logs"
+  # Namepass ensures only these measurements are written to the bucket.
+  namepass = ["socialplus_app_logs", "socialplus_api_logs"]
