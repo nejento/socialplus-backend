@@ -18,8 +18,8 @@ import {
     PaginatedDetailedPosts, PaginatedDetailedPostsType
 } from "../types/schemas";
 import { FacebookTokenManager } from '../social/FacebookTokenManager';
+import { prisma } from "../utils/prisma";
 
-const prisma = new PrismaClient();
 
 interface IReply {
     200: { success: boolean; message: string };

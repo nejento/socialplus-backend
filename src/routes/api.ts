@@ -30,8 +30,7 @@ import {
     PaginatedDetailedPosts, PaginatedDetailedPostsType,
     ScheduleContentRequest, ScheduleContentRequestType
 } from "../types/schemas";
-
-const prisma = new PrismaClient();
+import { prisma } from "../utils/prisma";
 
 
 interface IReply {

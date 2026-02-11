@@ -2,6 +2,7 @@ import * as cron from 'node-cron';
 import { InfluxDBService } from './InfluxDBService';
 import { ISocialNetworkProvider, PostPerformanceMetrics, TrackedPost, InfluxDBConfig } from './ISocialNetworkProvider';
 import { SocialNetworkProviderFactory } from './SocialNetworkProviderFactory';
+import { prisma } from '../utils/prisma';
 import { PrismaClient } from '../generated/client';
 import { logger } from '../utils/logger';
 
@@ -16,7 +17,7 @@ export class PerformanceMonitorService {
 
   constructor(influxDBConfig: InfluxDBConfig) {
     this.influxDBService = new InfluxDBService(influxDBConfig);
-    this.prisma = new PrismaClient();
+    this.prisma = prisma;
   }
 
   /**

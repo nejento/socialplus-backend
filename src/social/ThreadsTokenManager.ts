@@ -1,4 +1,5 @@
-import {PrismaClient} from '../generated/client';
+import { prisma } from '../utils/prisma';
+import { PrismaClient } from '../generated/client';
 import axios from 'axios';
 import { logger } from '../utils/logger';
 
@@ -34,7 +35,7 @@ export class ThreadsTokenManager {
    * Konstruktor pro ThreadsTokenManager
    */
   constructor() {
-    this.prisma = new PrismaClient();
+    this.prisma = prisma;
   }
 
   /**

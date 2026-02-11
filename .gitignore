@@ -214,4 +214,13 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# TypeScript compiled files
+*.js
+!jest.config.js
+!static/**/*.js
+
+# Prisma generated client
+src/generated/
+prisma.config.js
+
 !/src/routes/api.ts

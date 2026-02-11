@@ -1,6 +1,7 @@
 import {FastifyInstance, FastifyReply, FastifyRequest} from 'fastify';
-import {PrismaClient} from '../generated/client';
 import {PostScheduler} from '../social/PostScheduler';
+import { prisma } from '../utils/prisma';
+
 
 // Deklaruje instanci scheduleru (bude předána z hlavního serveru)
 let postScheduler: PostScheduler;
@@ -33,7 +34,6 @@ const upcomingPostSchema = {
  * @param fastify - Instance Fastify serveru
  */
 export default async function schedulerRoutes(fastify: FastifyInstance) {
-  const prisma = new PrismaClient();
 
   // Inicializuje referenci na scheduler
   postScheduler = new PostScheduler(prisma, parseInt(process.env.SCHEDULER_CHECK_INTERVAL || "1"));

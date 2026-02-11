@@ -1,6 +1,9 @@
-import fastify from 'fastify'
+// Load environment variables first, before importing any modules that depend on them
 import dotenv from 'dotenv';
-import { PrismaClient } from './src/generated/client';
+dotenv.config();
+
+import fastify from 'fastify'
+import { prisma } from './src/utils/prisma';
 import { fastifySession } from '@fastify/session';
 import { fastifyCookie } from '@fastify/cookie';
 import fastifyStatic from "@fastify/static";
@@ -14,7 +17,6 @@ import { MonitoringConfig } from './src/utils/MonitoringConfig';
 import * as fs from 'fs';
 import * as path from 'path';
 
-dotenv.config();
 
 /**
  * Konfigurace loggeru podle prostředí
@@ -42,8 +44,8 @@ const envToLogger = {
 	test: false
 }
 
-// Prisma ORM
-const prisma = new PrismaClient();
+// Prisma ORM - now imported from utils/prisma.ts
+// const prisma = createPrismaClient(); // already exported from utils/prisma.ts
 
 // Plánovač příspěvků
 const postScheduler = new PostScheduler(prisma, parseInt(process.env.SCHEDULER_CHECK_INTERVAL || "1"));

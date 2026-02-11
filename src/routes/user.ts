@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { PrismaClient } from '../generated/client';
 import { Type } from '@sinclair/typebox'
 import bcrypt from 'bcrypt';
 import { isAuthenticated } from "../utils/helpers";
@@ -8,8 +7,8 @@ import {
     UserLogin, UserLoginType,
     User, UserType
 } from "../types/schemas";
+import { prisma } from "../utils/prisma";
 
-const prisma = new PrismaClient();
 
 const hashRounds = parseInt(process.env.SALT_ROUNDS || '10');
 

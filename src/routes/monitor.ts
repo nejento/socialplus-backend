@@ -1,10 +1,9 @@
 import { FastifyInstance } from 'fastify';
 import { Type } from '@sinclair/typebox';
-import { PrismaClient } from '../generated/client';
 import { PerformanceMonitorService } from '../social/PerformanceMonitorService';
 import { isAuthenticated, hasPostPermission } from '../utils/helpers';
+import { prisma } from "../utils/prisma";
 
-const prisma = new PrismaClient();
 
 // Inicializuje službu monitorování výkonu (mělo by být ideálně singleton)
 let performanceMonitor: PerformanceMonitorService | null = null;

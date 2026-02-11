@@ -140,7 +140,7 @@ export class BlueskyProvider implements ISocialNetworkProvider {
           logger.info(`Image ${fileName} is ${(fileBuffer.length / 1024 / 1024).toFixed(2)}MB, compressing to under 1MB...`);
 
           try {
-            fileBuffer = await this.compressImage(fileBuffer, ext, MAX_FILE_SIZE);
+            fileBuffer = Buffer.from(await this.compressImage(fileBuffer, ext, MAX_FILE_SIZE));
 
             // Aktualizuje mime typ, pokud byl formát převeden
             if (ext === '.gif' || ext === '.heic' || ext === '.heif') {
@@ -157,7 +157,7 @@ export class BlueskyProvider implements ISocialNetworkProvider {
           // Převede HEIC/HEIF a GIF i když jsou pod limitem velikosti pro kompatibilitu
           try {
             logger.info(`Converting ${ext.toUpperCase()} ${fileName} to JPEG for compatibility`);
-            fileBuffer = await this.convertToJpeg(fileBuffer, 85);
+            fileBuffer = Buffer.from(await this.convertToJpeg(fileBuffer, 85));
             mimeType = 'image/jpeg';
           } catch (conversionError) {
             logger.error({ err: conversionError }, `Failed to convert ${fileName}:`);

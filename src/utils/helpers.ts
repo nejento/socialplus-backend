@@ -1,6 +1,6 @@
-import {PrismaClient} from "../generated/client";
+import { prisma } from "./prisma";
 
-export const prisma = new PrismaClient();
+export { prisma };
 
 /**
  * Zkontrolovat, zda je uživatel autentizován pro preValidation hook
