@@ -46,7 +46,7 @@
     "bcrypt": "^6.0.0",
     "crypto-js": "^4.2.0",
     "dotenv": "^17.3.1",
-    "fastify": "^5.8.3",
+    "fastify": "^5.8.5",
     "form-data": "^4.0.4",
     "mariadb": "^3.5.1",
     "node-cron": "^4.2.1",
