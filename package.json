@@ -40,7 +40,7 @@
     "@influxdata/influxdb-client": "^1.35.0",
     "@influxdata/influxdb-client-apis": "^1.35.0",
     "@prisma/adapter-mariadb": "^7.4.0",
-    "@prisma/client": "^7.4.1",
+    "@prisma/client": "^7.7.0",
     "@sinclair/typebox": "^0.34.48",
     "axios": "^1.15.0",
     "bcrypt": "^6.0.0",
